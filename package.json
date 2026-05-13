@@ -1,0 +1,38 @@
+{
+  "name": "@repo/contracts",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./artifacts/HelloWorldClient.ts"
+  },
+  "engines": {
+    "node": ">=24.0"
+  },
+  "scripts": {
+    "build": "algokit compile ts src --output-source-map --out-dir ../artifacts && algokit generate client artifacts --version 7.0.0-beta.3 --output {app_spec_dir}/{contract_name}Client.ts",
+    "test": "npm run build && vitest run",
+    "test:watch": "vitest watch",
+    "check-types": "tsc --noEmit",
+    "deploy": "npm run build && tsx --env-file=.env.localnet deploy.ts",
+    "deploy:testnet": "npm run build && tsx --env-file=.env.testnet deploy.ts",
+    "deploy:mainnet": "npm run build && tsx --env-file=.env.mainnet deploy.ts"
+  },
+  "dependencies": {
+    "@algorandfoundation/algorand-typescript": "1.2.0-beta.30"
+  },
+  "devDependencies": {
+    "@algorandfoundation/algorand-typescript-testing": "1.2.0-beta.4",
+    "@algorandfoundation/algokit-utils": "10.0.0-beta.2",
+    "@algorandfoundation/puya-ts": "1.2.0-beta.30",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "@vitest/coverage-v8": "4.1.6",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.7.3",
+    "vitest": "4.1.6"
+  },
+  "overrides": {
+    "esbuild": "0.25.0",
+    "fast-uri": "3.1.2"
+  }
+}
